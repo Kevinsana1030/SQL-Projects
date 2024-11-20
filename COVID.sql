@@ -1,23 +1,23 @@
 -- Showing Tables
 SELECT *
-FROM AnomaProject..CovidDeaths
+FROM KevinProject..CovidDeaths
 
 SELECT *
-FROM AnomaProject..CovidVaccinations
+FROM KevinProject..CovidVaccinations
 
 -- I used the first 5 codes to create visualizations in Tableau.
 
 -- 1. Showing the total_cases, total_deaths and DeathPercentage in Nigeria
 Select SUM(new_cases) as total_cases, SUM(cast(new_deaths as int)) as total_deaths, 
 SUM(cast(new_deaths as int))/SUM(New_Cases)*100 as DeathPercentage
-From AnomaProject..CovidDeaths
+From KevinProject..CovidDeaths
 Where location like '%Nigeria%' AND continent is not null 
 --Group By date
 order by 1,2
 
 --2. Showing the location and TotalDeathCount for each location
 Select location, SUM(cast(new_deaths as int)) as TotalDeathCount
-From AnomaProject..CovidDeaths
+From KevinProject..CovidDeaths
 --Where location like '%nigeria%'
 Where continent is null 
 and location not in ('World', 'European Union', 'International')
@@ -26,7 +26,7 @@ order by TotalDeathCount desc
 
 -- 3. Showing the location, population, highestinfectionCount and PercentPopulationInfected
 Select Location, Population, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
-From AnomaProject..CovidDeaths
+From Kevin..CovidDeaths
 --Where location like '%nigeria%'
 Group by Location, Population
 order by PercentPopulationInfected desc
